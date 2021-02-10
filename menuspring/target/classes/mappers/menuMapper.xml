@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="menuMapper">
+  
+  <insert id="insertFile" parameterType="hashMap">
+  	INSERT INTO MENUIMAGE ( menuNumber , orgFileName, storedFileName, fileSize) 
+  	values ( #{menuNumber},#{orgFileName},#{storedFileName},#{fileSize})
+  
+  </insert>
+  
+  <select id="selectFileList" parameterType="int" resultType="hashMap">
+  	SELECT menuImageNumber , orgFileName, round(fileSize/1024,1) as fileSize FROM menuimage
+  	where menuNumber = #{menuNumber} AND delGB = 'N' ORDER BY menuImageNumber ASC
+  </select>
+  
+  <!-- 첨부파일 다운 -->
+  <select id="selectFileInfo" parameterType="hashMap" resultType="hashMap">
+  	SELECT storedFileName, orgFileName FROM menuimage WHERE menuImageNumber=#{FILE_NO}
+  </select>
+  
+  <update id="updateFile" parameterType="HashMap">
+  	UPDATE menuimage SET delGB = 'Y' WHERE menuImageNumber = #{FILE_NO}
+  </update>
+  
+  <insert id="insert" useGeneratedKeys="true" keyProperty="menuNumber" >
+  	INSERT INTO MENU(
+	menuTitle,menuContent,id,menuImageNumber,menuAvailable,readCnt,sumAppraisal)
+	VALUES( 
+  	#{menuTitle} 
+	,#{menuContent} 
+	,#{id} 
+	,0
+	,1
+	,0
+	,0
+  	 )
+  </insert>
+  
+  <select id="list" resultType="kr.co.vo.MenuVO">
+  	<![CDATA[
+  	SELECT menuNumber,menuTitle,menuContent,menuDate,id,menuImageNumber,menuAvailable,readCnt,sumAppraisal 
+  	FROM MENU WHERE MENUAVAILABLE=1 ORDER BY MENUNUMBER DESC LIMIT #{pageStart}, #{perPageNum}
+ 	 ]]>
+  </select>
+  
+  <select id="gettotalcount" resultType="int">
+  	<![CDATA[
+  		SELECT COUNT(MENUNUMBER) FROM MENU WHERE MENUNUMBER > 0
+  	]]>
+  </select>
+  
+  <select id="read" parameterType="int" resultType="kr.co.vo.MenuVO" >
+  	<![CDATA[
+  	
+  	SELECT MENUNUMBER,MENUTITLE,MENUCONTENT,MENUDATE,ID,MENUIMAGENUMBER,MENUAVAILABLE,READCNT,SUMAPPRAISAL FROM MENU WHERE MENUNUMBER = #{MENUNUMBER}
+  
+   	]]>
+  </select>
+  
+  <update id="update" parameterType="kr.co.vo.MenuVO">
+  	update menu set menuTitle=#{menuTitle},menuContent=#{menuContent} where menuNumber=#{menuNumber}
+  </update>
+  
+  <delete id="delete" parameterType="int">
+  	delete from menu where menuNumber=#{menuNumber}
+  </delete>
+  
+  
+</mapper>
