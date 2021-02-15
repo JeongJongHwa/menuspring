@@ -37,4 +37,7 @@ public interface MenuDAO {
 	// 첨부파일 수정
 	public void updateFile(Map<String, Object> map) throws Exception;
 	
+	// 게시판 조회수
+	public void menuReadCnt(int menuNumber) throws Exception;
+	
 }

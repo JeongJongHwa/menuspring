@@ -85,6 +85,12 @@ public class MenuDAOImpl implements MenuDAO {
 		
 	}
 
+	@Override
+	public void menuReadCnt(int menuNumber) throws Exception {
+
+		sqlSession.update("menuMapper.menuReadCnt", menuNumber);
+	}
+
 	
 	
 }

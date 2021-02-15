@@ -48,6 +48,7 @@ public class MenuServiceImpl implements MenuService {
 	@Override
 	public MenuVO read(int menuNumber) throws Exception {
 		
+		dao.menuReadCnt(menuNumber);
 		return dao.read(menuNumber);
 	}
 

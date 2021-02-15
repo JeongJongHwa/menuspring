@@ -11,7 +11,7 @@
   </insert>
   
   <select id="selectFileList" parameterType="int" resultType="hashMap">
-  	SELECT menuImageNumber , orgFileName, round(fileSize/1024,1) as fileSize FROM menuimage
+  	SELECT menuImageNumber, storedFileName , orgFileName, round(fileSize/1024,1) as fileSize FROM menuimage
   	where menuNumber = #{menuNumber} AND delGB = 'N' ORDER BY menuImageNumber ASC
   </select>
   
@@ -22,6 +22,11 @@
   
   <update id="updateFile" parameterType="HashMap">
   	UPDATE menuimage SET delGB = 'Y' WHERE menuImageNumber = #{FILE_NO}
+  </update>
+  
+  <!-- 게시판 조회수  -->
+  <update id="menuReadCnt" parameterType="int">
+  	UPDATE MENU SET readCnt = readCnt+1 WHERE menuNumber = #{menuNumber}
   </update>
   
   <insert id="insert" useGeneratedKeys="true" keyProperty="menuNumber" >

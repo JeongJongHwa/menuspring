@@ -45,6 +45,7 @@
 							<textarea class="form-control" id="menuContent" name="menuContent" rows="10" cols="200" readonly="readonly">${read.menuContent}</textarea><br/>
 							<div class="form-group">
 								<c:forEach items="${file}" var="file">
+									<img style="margin: 2px"  width="600px" height="250px" src="/menuspring/resources/upload/${file.storedFileName }">
 									<a href='#' onclick="fn_fileDown('${file.menuImageNumber}'); return false;">${file.orgFileName }</a>(${file.fileSize }kb)<br/>
 								</c:forEach>
 							</div>
@@ -71,9 +72,6 @@
 			<button type="button" class="btn btn-primary pull-left list_btn"   >뒤로가기</button>
 			<button type="button" class="btn btn-primary pull-right delete_btn" >삭제하기</button>
 			<button type="button" class="btn btn-primary pull-right update_btn" >수정하기</button>
-
-
-			
 		</div>
 	</div>
 	<br/><br/><br/>

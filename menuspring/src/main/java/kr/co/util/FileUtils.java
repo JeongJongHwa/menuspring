@@ -16,7 +16,13 @@ import kr.co.vo.MenuVO;
 
 @Component("fileUtils")
 public class FileUtils {
-	private static final String filePath = "E:\\eclipse_source\\menuspring\\src\\main\\webapp\\WEB-INF\\upload\\"; // 파일이 저장될 위치
+	private static final String filePath = "E:\\git\\menuspring\\menuspring\\src\\main\\webapp\\resources\\upload\\"; // 파일이 저장될 위치
+	
+
+	public static String getFilepath() {
+		return filePath;
+	}
+
 
 	public List<Map<String, Object>> parseInsertFileInfo(MenuVO menuVO, MultipartHttpServletRequest mpRequest)
 			throws Exception {

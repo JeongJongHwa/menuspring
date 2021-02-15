@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.service.MenuService;
+import kr.co.util.FileUtils;
 import kr.co.vo.Criteria;
 import kr.co.vo.MenuVO;
 import kr.co.vo.PageMaker;
@@ -135,7 +136,7 @@ public class MenuController {
 		String originalFileName = (String)resultMap.get("orgFileName");
 		
 		// 파이릉ㄹ 저장햇던 위치에서 첨부파일을 읽어 byte[]형식으로 변환한다.
-		byte fileByte[] = org.apache.commons.io.FileUtils.readFileToByteArray(new File("E:\\eclipse_source\\menuspring\\src\\main\\webapp\\WEB-INF\\upload\\"+storedFileName));
+		byte fileByte[] = org.apache.commons.io.FileUtils.readFileToByteArray(new File(FileUtils.getFilepath()+storedFileName));
 		
 		response.setContentType("application/octet-stream");
 		response.setContentLength(fileByte.length);
