@@ -13,12 +13,13 @@
 <title>육식</title>
 </head>
 <body>
-<input type="hidden" id="myID" name="myID" value="<%=session.getAttribute("userID") %>" />
 
+<input type="hidden" id="myID" name="myID" value="${user.id}" />
 <%@ include file="../util/nav.jsp" %>
 	
 	<div class="container">
 		<form name="readForm" >
+		
 		<input type="hidden" name="page" value="${cri.page }" />
 		<input type="hidden" name="perPageNum" value="${cri.perPageNum }" />
 		<input type="hidden" id="menuNumber" name="menuNumber" value="${read.menuNumber}" />
@@ -60,8 +61,14 @@
 		<div class="row text-center" >
 			<div class="col-sm-5"></div>
 			<div class="col-sm-3">	
-			
-
+			<c:choose >
+				<c:when test="${appraisal.menuAppraisal eq 1}">
+					<p id="upBtn" style="font-size:80px;cursor: pointer;" class="pull-left">&#128077;&#127995;</p>
+				</c:when>
+				<c:otherwise>
+					<p id="upBtn" style="font-size:80px;cursor: pointer;" class="pull-left">&#128077;&#127999;</p>
+				</c:otherwise>
+			</c:choose>
 			</div>
 			<div class="col-sm-4"></div>
 		</div>
@@ -70,8 +77,13 @@
 		<div class="row" >
 			<div class="col-sm-1" ></div>
 			<button type="button" class="btn btn-primary pull-left list_btn"   >뒤로가기</button>
-			<button type="button" class="btn btn-primary pull-right delete_btn" >삭제하기</button>
-			<button type="button" class="btn btn-primary pull-right update_btn" >수정하기</button>
+			
+			<c:if test="${user.id eq read.id}">
+				<button type="button" class="btn btn-primary pull-right delete_btn" >삭제하기</button>
+				<button type="button" class="btn btn-primary pull-right update_btn" >수정하기</button>
+			</c:if>
+			
+			
 		</div>
 	</div>
 	<br/><br/><br/>
@@ -86,6 +98,8 @@ $(document).ready(function(){
 	// 수정
 	$('.update_btn').on('click',function(e){
 		e.preventDefault();
+
+		
 		formObj.attr("action","/menuspring/menu/updateView");
 		formObj.attr("method","get");
 		
@@ -109,58 +123,40 @@ $(document).ready(function(){
 	});
 	
 	
-	
-	
 	var upDown = {
 			darkUp:"&#128077;&#127999;",
 			Up:"&#128077;&#127995;",
-			darkDown:"&#128078;&#127999;",
-			Down:"&#128078;&#127995;"
 	} ;
 	
-	$('p[updown]').on('click',function(e){
+	var id = $("#myID").val();
+	
+	$('#upBtn').on('click',function(e){
 		
-		var param = {
+		 var param = {
 				menuNumber:$("#menuNumber").val() ,
 				id:$("#myID").val(),
-				data: $(this).attr("updown")
 		};
-		
-		if( param.id == "null" ){
+		 
+		if( param.id == "null" || param.id == "" ){
 			alert("로그인을 해주세요.");		
 			return 0;
-		}
-		
-		
+		} 
 		$.ajax({
 			type:'post',
-			url:"MenuAppraisalServlet",
-			data:JSON.stringify(param),
+			url:"/menuspring/menu/appraisal",
+			data: JSON.stringify(param),  //JSON.stringify(param),
 			dataType:'json',
 			contentType: "application/json; charset=utf-8",
 			success:function(data){
 				
-				if( data == 1 ){
-					alert("로그인을 해주시기 바랍니다.");
-					location.href='login.jsp';
-				} else {
-					
-					if( data == null ){
-						$("#upBtn").html(upDown.darkUp);
-						$("#downBtn").html(upDown.darkDown);
+					// 1이면 밝은 0 이면 끝
+					if( data == '1' ){
+						$("#upBtn").html(upDown.Up);
 						// 따봉색 원래대로
 					} else {
-						
-						if( data.menuAppraisal == 1 ){
-							$("#upBtn").html(upDown.Up);
-							$("#downBtn").html(upDown.darkDown);
-						} else if ( data.menuAppraisal == -1 ){
-							$("#downBtn").html(upDown.Down);
-							$("#upBtn").html(upDown.darkUp);
-						}
-						// 따봉색 주기
+						$("#upBtn").html(upDown.darkUp);
 					}
-				}
+				
 			},
 			error:function(request, status, error){
 				 var msg = "ERROR : " + request.status + "<br>"

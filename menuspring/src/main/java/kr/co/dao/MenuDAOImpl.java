@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import kr.co.vo.AppraisalVO;
 import kr.co.vo.Criteria;
 import kr.co.vo.MenuVO;
 
@@ -89,6 +90,31 @@ public class MenuDAOImpl implements MenuDAO {
 	public void menuReadCnt(int menuNumber) throws Exception {
 
 		sqlSession.update("menuMapper.menuReadCnt", menuNumber);
+	}
+
+	@Override
+	public AppraisalVO getAppraisal(Map<String, Object> map) throws Exception {
+
+		return sqlSession.selectOne("menuMapper.selectAppraisal",map);
+		
+	}
+
+	@Override
+	public void deleteAppraisal(Map<String, Object> map) throws Exception {
+		 
+		sqlSession.delete("menuMapper.deleteAppraisal", map );
+		
+	}
+
+	@Override
+	public void insertAppraisal(Map<String, Object> map) throws Exception {
+
+		sqlSession.insert("menuMapper.insertAppraisal", map);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectIndexList() throws Exception {
+		return sqlSession.selectList("menuMapper.selectIndexList");
 	}
 
 	

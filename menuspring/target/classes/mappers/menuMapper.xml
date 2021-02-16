@@ -4,6 +4,13 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="menuMapper">
   
+  <select id="selectIndexList" resultType="hashMap">
+  	SELECT MENU.menuNumber,MENU.menuTitle,sum(menuAppraisal) as sumAppraisal,MENU.id,
+  	(select storedFileName from menuImage where menuImage.menuNumber=menuappraisal.menuNumber group by menuNumber) as storedFileName 
+  	FROM MENUAPPRAISAL,MENU WHERE MENUAPPRAISAL.MENUNUMBER = MENU.MENUNUMBER
+  	GROUP BY menuNumber order by menuNumber desc limit 3;
+  </select>
+  
   <insert id="insertFile" parameterType="hashMap">
   	INSERT INTO MENUIMAGE ( menuNumber , orgFileName, storedFileName, fileSize) 
   	values ( #{menuNumber},#{orgFileName},#{storedFileName},#{fileSize})
@@ -71,6 +78,20 @@
   <delete id="delete" parameterType="int">
   	delete from menu where menuNumber=#{menuNumber}
   </delete>
+  
+  <select id="selectAppraisal" parameterType="HashMap" resultType="kr.co.vo.AppraisalVO">
+	  <![CDATA[
+	  	SELECT * from menuappraisal where menuNumber=#{menuNumber} AND id=#{id}
+	  ]]>
+  </select>
+  
+  <update id="deleteAppraisal" parameterType="HashMap">
+  		DELETE FROM MENUAPPRAISAL WHERE MENUNUMBER=#{menuNumber} AND id=#{id}
+  </update>
+  
+  <insert id="insertAppraisal" parameterType="HashMap">
+  		INSERT INTO MENUAPPRAISAL ( menuNumber, id , menuAppraisal ) values( #{menuNumber}, #{id}, 1 );
+  </insert>
   
   
 </mapper>

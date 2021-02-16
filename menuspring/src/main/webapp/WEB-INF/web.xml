@@ -33,9 +33,9 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 	
-	 <welcome-file-list>
+	<!--  <welcome-file-list>
         <welcome-file>/WEB-INF/views/index.jsp</welcome-file>
-    </welcome-file-list>
+    </welcome-file-list> -->
 
 
 	<!-- 한글 인코딩 Start -->

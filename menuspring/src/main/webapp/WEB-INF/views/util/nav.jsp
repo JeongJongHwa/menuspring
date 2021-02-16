@@ -27,13 +27,17 @@ $(document).ready(function(){
    				"menu","login","writeView"
    		];
    		var viewsNameLength = viewsName.length;
+   		var indexViews = 0;
    		
    		for ( var i=0; i<viewsNameLength;i++ ){
    				// -1 과 같지않으면 menuView에 속함.
+   				indexViews++;
    				
    			if( thisPageURISub.indexOf( viewsName[i] ) !== -1 ){
-   				
+   				indexViews = 0;
    				$("."+viewsName[i]+"div").addClass('active');
+   			} else if (indexViews == viewsNameLength ){
+   				$(".indexdiv").addClass('active');
    			}
    			
    		}
@@ -49,7 +53,7 @@ $(document).ready(function(){
 	<div class="navbar navbar-inverse">
 		<div class="container">
 			<ul class="nav navbar-nav">
-				<li><a class="navbar-brand" href="/menuspring">육식메인화면</a></li>
+				<li class="indexdiv"><a class="navbar-brand" href="/menuspring">육식메인화면</a></li>
 				<li class="menudiv"><a href="/menuspring/menu/list">식단</a></li>
 				<li><a href="/menuspring/notice/list">공지사항</a></li>
 				<li><a href="/menuspring/custom/list">식단 거래처 관리</a></li>
@@ -65,7 +69,7 @@ $(document).ready(function(){
 	<div class="navbar navbar-inverse">
 		<div class="container">
 			<ul class="nav navbar-nav">
-				<li><a class="navbar-brand" href="index.jsp">육식메인화면</a></li>
+				<li class="indexdiv"><a class="navbar-brand" href="/menuspring">육식메인화면</a></li>
 				<li class="menudiv"><a href="/menuspring/menu/list">식단</a></li>
 				<li><a href="/menuspring/notice/list">공지사항</a></li>
 				<li><a href="/menuspring/custom/list">식단 거래처 관리</a></li>

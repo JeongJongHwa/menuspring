@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import kr.co.dao.MenuDAO;
 import kr.co.util.FileUtils;
+import kr.co.vo.AppraisalVO;
 import kr.co.vo.Criteria;
 import kr.co.vo.MenuVO;
 
@@ -19,24 +20,22 @@ public class MenuServiceImpl implements MenuService {
 
 	@Inject
 	private MenuDAO dao;
-	
+
 	@Autowired
 	private FileUtils fileUtils;
-	
+
 	// 메뉴 작성
 	@Override
-	public void write(MenuVO menuVO,MultipartHttpServletRequest mpRequest) throws Exception {
-		
+	public void write(MenuVO menuVO, MultipartHttpServletRequest mpRequest) throws Exception {
+
 		dao.write(menuVO);
-		
-		List<Map<String,Object>> list = fileUtils.parseInsertFileInfo(menuVO, mpRequest);
+
+		List<Map<String, Object>> list = fileUtils.parseInsertFileInfo(menuVO, mpRequest);
 		int size = list.size();
-		for( int i=0; i<size; i++ ) {
+		for (int i = 0; i < size; i++) {
 			dao.insertFile(list.get(i));
 		}
-		
-		
-		
+
 	}
 
 	@Override
@@ -47,36 +46,36 @@ public class MenuServiceImpl implements MenuService {
 
 	@Override
 	public MenuVO read(int menuNumber) throws Exception {
-		
+
 		dao.menuReadCnt(menuNumber);
 		return dao.read(menuNumber);
 	}
 
 	@Override
-	public void update(MenuVO menuVO,String[] files, String[] fileNames,MultipartHttpServletRequest mpRequest) throws Exception {
+	public void update(MenuVO menuVO, String[] files, String[] fileNames, MultipartHttpServletRequest mpRequest)
+			throws Exception {
 
 		dao.update(menuVO);
-		
+
 		List<Map<String, Object>> list = fileUtils.parseUpdateFileInfo(menuVO, files, fileNames, mpRequest);
 		Map<String, Object> tempMap = null;
 		int size = list.size();
-		for( int i=0;i<size;i++ ) {
+		for (int i = 0; i < size; i++) {
 			tempMap = list.get(i);
-			if( tempMap.get("isNew").equals("Y") ) {
+			if (tempMap.get("isNew").equals("Y")) {
 				dao.insertFile(tempMap);
 			} else {
 				dao.updateFile(tempMap);
 			}
 		}
-		
-		
+
 	}
 
 	@Override
 	public void delete(int menuNumber) throws Exception {
 
 		dao.delete(menuNumber);
-		
+
 	}
 
 	@Override
@@ -97,6 +96,35 @@ public class MenuServiceImpl implements MenuService {
 		return dao.selectFileInfo(map);
 	}
 
-	
+	@Override
+	public int Appraisal(Map<String, Object> map) throws Exception {
+
+		// 1이면 존재하므로 삭제 , 0이면 생성
+
+		AppraisalVO appraisal = dao.getAppraisal(map);
+		
+		// null 이면 생성 , null이 아니면 삭제
+		if (appraisal == null ) {
+			dao.insertAppraisal(map);
+			return 1;
+		} else {
+			dao.deleteAppraisal(map);
+			return 0;
+		}
+
+	}
+
+	@Override
+	public AppraisalVO getAppraisal(Map<String, Object> map) throws Exception {
+
+		return dao.getAppraisal(map);
+
+	}
+
+	@Override
+	public List<Map<String, Object>> selectIndexList() throws Exception {
+		
+		return dao.selectIndexList();
+	}
 
 }

@@ -3,11 +3,16 @@ package kr.co.dao;
 import java.util.List;
 import java.util.Map;
 
+import kr.co.vo.AppraisalVO;
 import kr.co.vo.Criteria;
 import kr.co.vo.MenuVO;
 
 public interface MenuDAO {
 
+	// index 화면 평가에 따른 탑 3
+	public List<Map<String, Object>> selectIndexList() throws Exception;
+	
+	
 	// 메뉴 작성
 	public void write(MenuVO menuVO) throws Exception;
 	
@@ -39,5 +44,14 @@ public interface MenuDAO {
 	
 	// 게시판 조회수
 	public void menuReadCnt(int menuNumber) throws Exception;
+	
+	// 평가 조회 
+	public AppraisalVO getAppraisal(Map<String, Object> map)throws Exception;
+	
+	// 평가 삭제
+	public void deleteAppraisal(Map<String, Object> map)throws Exception;
+	
+	// 평가 추가
+	public void insertAppraisal(Map<String, Object> map)throws Exception;
 	
 }
