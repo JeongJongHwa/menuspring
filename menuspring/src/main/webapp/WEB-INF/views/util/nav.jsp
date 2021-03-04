@@ -24,7 +24,7 @@ $(document).ready(function(){
    		var thisPageURISub = thisPageURI.substring( thisPageURI.indexOf("menuspring")+10 );
    		
    		var viewsName = [
-   				"menu","login","writeView"
+   				"menu","login","writeView","notice"
    		];
    		var viewsNameLength = viewsName.length;
    		var indexViews = 0;
@@ -55,7 +55,7 @@ $(document).ready(function(){
 			<ul class="nav navbar-nav">
 				<li class="indexdiv"><a class="navbar-brand" href="/menuspring">육식메인화면</a></li>
 				<li class="menudiv"><a href="/menuspring/menu/list">식단</a></li>
-				<li><a href="/menuspring/notice/list">공지사항</a></li>
+				<li class="noticediv"><a href="/menuspring/notice/list">공지사항</a></li>
 				<li><a href="/menuspring/custom/list">식단 거래처 관리</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
@@ -71,7 +71,7 @@ $(document).ready(function(){
 			<ul class="nav navbar-nav">
 				<li class="indexdiv"><a class="navbar-brand" href="/menuspring">육식메인화면</a></li>
 				<li class="menudiv"><a href="/menuspring/menu/list">식단</a></li>
-				<li><a href="/menuspring/notice/list">공지사항</a></li>
+				<li class="noticediv"><a href="/menuspring/notice/list">공지사항</a></li>
 				<li><a href="/menuspring/custom/list">식단 거래처 관리</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="noticeMapper">
+  
+  <select id="list" resultType="kr.co.vo.NoticeVO">
+  	<![CDATA[
+  	SELECT noticeNumber,noticeTitle,noticeContent,noticeDate,noticeId,noticeAvailable
+  	FROM NOTICE WHERE NOTICEAVAILABLE=1 ORDER BY NOTICENUMBER DESC LIMIT #{pageStart}, #{perPageNum}
+ 	 ]]>
+  </select>
+  
+    <select id="gettotalcount" resultType="int">
+  	<![CDATA[
+  		SELECT COUNT(noticeNumber) FROM NOTICE WHERE NOTICENUMBER > 0
+  	]]>
+  </select>
+  
+
+  
+  
+</mapper>
