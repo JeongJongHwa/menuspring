@@ -27,6 +27,32 @@ public class NoticeServiceImpl implements NoticeService {
 		return dao.getTotalCount(cri);
 	}
 
+	@Override
+	public void write(NoticeVO noticeVO) throws Exception {
+
+		dao.write(noticeVO);
+		
+	}
+
+	@Override
+	public NoticeVO read(int noticeNumber) throws Exception {
+		
+		return dao.read(noticeNumber);
+		
+	}
+
+	@Override
+	public void update(NoticeVO noticeVO) throws Exception {
+
+		dao.update(noticeVO);
+	}
+
+	@Override
+	public void delete(int noticeNumber) throws Exception {
+
+		dao.delete(noticeNumber);
+	}
+
 	
 
 }

@@ -27,9 +27,30 @@ public class NoticeDAOImpl implements NoticeDAO {
 
 		return sqlSession.selectOne("noticeMapper.gettotalcount", cri);
 	}
-	
-	
 
+	@Override
+	public void write(NoticeVO noticeVO) throws Exception {
+
+		sqlSession.insert("noticeMapper.insert",noticeVO);
+	}
+
+	@Override
+	public NoticeVO read(int noticeNumber) throws Exception {
+
+		return sqlSession.selectOne("noticeMapper.read", noticeNumber);
 	
-	
+	}
+
+	@Override
+	public void update(NoticeVO noticeVO) throws Exception {
+
+		sqlSession.update("noticeMapper.update", noticeVO);
+	}
+
+	@Override
+	public void delete(int noticeNumber) throws Exception {
+
+		sqlSession.delete("noticeMapper.delete", noticeNumber);
+	}
+
 }

@@ -3,21 +3,48 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="noticeMapper">
-  
-  <select id="list" resultType="kr.co.vo.NoticeVO">
+
+	<select id="list" resultType="kr.co.vo.NoticeVO">
   	<![CDATA[
   	SELECT noticeNumber,noticeTitle,noticeContent,noticeDate,noticeId,noticeAvailable
   	FROM NOTICE WHERE NOTICEAVAILABLE=1 ORDER BY NOTICENUMBER DESC LIMIT #{pageStart}, #{perPageNum}
  	 ]]>
-  </select>
-  
-    <select id="gettotalcount" resultType="int">
+	</select>
+
+	<select id="gettotalcount" resultType="int">
   	<![CDATA[
   		SELECT COUNT(noticeNumber) FROM NOTICE WHERE NOTICENUMBER > 0
   	]]>
-  </select>
-  
+	</select>
 
+	<insert id="insert" parameterType="kr.co.vo.NoticeVO">
+		INSERT INTO NOTICE(
+		noticeTitle,noticeContent,noticeId)
+		VALUES(
+		#{noticeTitle}
+		,#{noticeContent}
+		,#{noticeId}
+		)
+	</insert>
+
+	<select id="read" parameterType="int"
+		resultType="kr.co.vo.NoticeVO">
+  	<![CDATA[
+  	
+  	SELECT noticeNumber,noticeTitle,noticeContent,noticeDate,noticeId,noticeAvailable FROM NOTICE WHERE NOTICENUMBER = #{NOTICENUMBER}
   
-  
+   	]]>
+	</select>
+
+	<update id="update" parameterType="kr.co.vo.NoticeVO">
+		update notice set noticeTitle=#{noticeTitle},noticeContent=#{noticeContent} where
+		noticeNumber=#{noticeNumber}
+	</update>
+
+	<delete id="delete" parameterType="int">
+		delete from notice where noticeNumber=#{noticeNumber}
+	</delete>
+
+
+
 </mapper>

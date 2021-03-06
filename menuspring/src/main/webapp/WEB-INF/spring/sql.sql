@@ -1,10 +1,10 @@
 CREATE TABLE notice(
-	noticeNumber int(11) primary key,
+	noticeNumber int(11) primary key auto_increment,
 	noticeTitle varchar(50),
 	noticeContent varchar(2048),
-	noticeDate datetime,
+	noticeDate datetime default NOW(),
 	noticeId varchar(20),
-	noticeAvailable int(3)
+	noticeAvailable int(3) default 1
 );
 
 CREATE TABLE user (

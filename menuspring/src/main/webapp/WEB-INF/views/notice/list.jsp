@@ -1,5 +1,6 @@
-<%@page import="kr.co.vo.MenuVO"%>
+<%@page import="kr.co.setting.Setting"%>
 <%@page import="java.util.ArrayList"%>
+<%@page import="kr.co.setting.*" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 	
@@ -24,7 +25,7 @@
 	<div class="container">
 		
 		<div class="row">
-			<div class="well text-center"><h2>사용자의 식단 게시판</h2></div>
+			<div class="well text-center"><h2>공지사항</h2></div>
 			<div class="col-sm-1" ></div>
 			<div class="col-sm-10" >
 				<div class="panel">
@@ -40,11 +41,11 @@
 							</thead>
 							<tbody>
 						<c:forEach items="${list}" var="list">
-							<tr style="cursor: pointer" onclick="location.href='/menuspring/menu/readView${pageMaker.makeQuery(pageMaker.cri.page)}&menuNumber=${list.menuNumber}'" >
-								<td>${list.menuNumber}</td>
-								<td>${list.menuTitle}</td>
-								<td>${list.menuDate}</td>
-								<td>${list.id}</td>
+							<tr style="cursor: pointer" onclick="location.href='/menuspring/notice/readView${pageMaker.makeQuery(pageMaker.cri.page)}&noticeNumber=${list.noticeNumber}'" >
+								<td>${list.noticeNumber}</td>
+								<td>${list.noticeTitle}</td>
+								<td>${list.noticeDate}</td>
+								<td>${list.noticeId}</td>
 							</tr>
 						</c:forEach>
 							</tbody>
@@ -60,7 +61,7 @@
 				<div class="col-sm-6">
 					<ul style="list-style-type: none;">
 						<li class="pull-left" id="page-prev">
-							<a class="btn btn-primary" href="/menuspring/menu/list${pageMaker.makeQuery(pageMaker.startPage-1)}"><span aria-hidden="true">«</span></a>
+							<a class="btn btn-primary" href="/menuspring/notice/list${pageMaker.makeQuery(pageMaker.startPage-1)}"><span aria-hidden="true">«</span></a>
 						</li>
 						<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage }" var="idx">
 							<li  class="pull-left">
@@ -71,7 +72,7 @@
 						
 						</c:forEach>
 						<li id="page-next">
-							<a class="btn btn-primary pull-left" href="/menuspring/menu/list${pageMaker.makeQuery(pageMaker.endPage+1)}"><span aria-hidden="true">»</span></a>
+							<a class="btn btn-primary pull-left" href="/menuspring/notice/list${pageMaker.makeQuery(pageMaker.endPage+1)}"><span aria-hidden="true">»</span></a>
 						</li>
 						
 						
@@ -83,7 +84,12 @@
 					  		<option value="15">15</option>
 					  		<option value="20">20</option>
 						</select>
-						 <a class="btn btn-primary pull-right" href="/menuspring/menu/writeView">작성하기</a>
+						<c:set scope="page" value="${Setting.getNoticeID()}" var="noticeID" ></c:set>
+						<a class="btn btn-primary pull-right" href="/menuspring/notice/writeView">작성하기</a>
+						<c:if test="${user.id eq noticeID}">
+							<a class="btn btn-primary pull-right" href="/menuspring/notice/writeView">작성하기</a>
+						 </c:if>
+						 
 				</div>
 					
 				<div style="width: 100px; height: 100px;" ></div>
@@ -123,7 +129,7 @@
 		//perPageNum 바뀌면 링크 이동
 		$perPageSel.on('change',function(){
 			//pageMarker.makeQuery 사용 못하는 이유 : makeQuery는 page만을 매개변수로 받기에 변경된 perPageNum을 반영못함
-			window.location.href = "/menuspring/menu/list?page="+thisPage+"&perPageNum="+$perPageSel.val();
+			window.location.href = "/menuspring/notice/list?page="+thisPage+"&perPageNum="+$perPageSel.val();
 		});
 		
 	}

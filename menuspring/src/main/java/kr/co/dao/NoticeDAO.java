@@ -8,7 +8,16 @@ import kr.co.vo.NoticeVO;
 public interface NoticeDAO {
 
 	public List<NoticeVO> list(Criteria cri) throws Exception;
-	
+
 	public int getTotalCount(Criteria cri) throws Exception;
-	
+
+	public void write(NoticeVO noticeVO) throws Exception;
+
+	public NoticeVO read(int noticeNumber) throws Exception;
+
+	// 메뉴 수정
+	public void update(NoticeVO noticeVO) throws Exception;
+
+	// 메뉴 삭제
+	public void delete(int noticeNumber) throws Exception;
 }
