@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="customMapper">
+
+	<select id="getLeftList" parameterType="HashMap" resultType="HashMap">
+	
+		SELECT BUSI_NUM,CUSTOM FROM CUSTOM
+		<where> 
+			<if test="BUSI_NUM != null and BUSI_NUM !='' ">
+			 	AND BUSI_NUM LIKE CONCAT(#{BUSI_NUM},'%')
+			</if>
+			<if test="CUSTOM != null and CUSTOM != '' ">
+			 	AND CUSTOM LIKE CONCAT(#{CUSTOM},'%')
+			</if>
+		</where>
+	</select>
+	
+	<select id="getCustom" parameterType="HashMap" resultType="HashMap">
+	
+		SELECT BUSI_NUM,CUSTOM,SHORT,CEO,CHARGE_PERSON,BUSI_CONDITION,ITEM,POST_NUM,ADDR1,ADDR2
+				,TEL,FAX,HOMEPAGE,CO_YN,FOREIGN_YN,TAX_YN,COUNTRY_ENG,COUNTRY_KOR,SPECIAL_RELATION
+				,TRADE_STOP,CONTRACT_PERIOD_S,CONTRACT_PERIOD_E,REGI_INFO_MAN,REGI_INFO_DATE
+				,MODI_INFO_MAN,MODI_INFO_DATE 
+		FROM CUSTOM WHERE BUSI_NUM = #{BUSI_NUM}
+	</select>
+	
+	<select id="getAccount" parameterType="HashMap" resultType="HashMap">
+	
+		SELECT BUSI_NUM,FACTORY,TRADE_BANK,ACCOUNT_NUM
+		FROM ACCOUNT WHERE BUSI_NUM = #{BUSI_NUM}
+	</select>
+
+
+</mapper>
