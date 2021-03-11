@@ -9,12 +9,16 @@ import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.service.CustomService;
+import kr.co.vo.AccountVO;
+import kr.co.vo.CustomVO;
 
 @Controller
 @RequestMapping("/custom/*")
@@ -56,6 +60,43 @@ public class CustomController {
 		return returnMap;
 		
 	}
+	
+	@RequestMapping( value = "/custom/nationChoice" , method = RequestMethod.GET )
+	public void nationChoice() throws Exception{
+		
+		logger.info("nationChoice");
+		
+	}
+	
+	@RequestMapping( value="/custom/write" , method = RequestMethod.POST )
+	public String write(@ModelAttribute CustomVO customVO,@ModelAttribute AccountVO accountVO,Model model) throws Exception {
+		logger.info("write");
+		
+		logger.info(customVO.toString());
+		logger.info(accountVO.toString());
+		
+		int accountRunning = 1;
+		
+		if ( accountVO.getFACTORY() == null && accountVO.getTRADE_BANK() == null && accountVO.getACCOUNT_NUM() == null ) {
+			accountRunning = 0;
+		}
+		
+		if( customVO.getBUSI_NUM() == null || customVO.getCUSTOM() == null ) {
+			
+			model.addAttribute("NN", "1");
+			return "custom/list";
+			
+		}
+		
+		
+		
+		
+		
+		return "custom/list";
+	}
+	
+	
+	
 	
 	
 

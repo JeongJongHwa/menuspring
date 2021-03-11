@@ -65,7 +65,7 @@ function postNumFind() {
 }
 
 function open_popup(){
-    window.open('nationChoice.jsp','windowPop','width=600, height=600, left=400, top=400,resizable = yes');
+    window.open('nationChoice','windowPop','width=600, height=600, left=400, top=400,resizable = yes');
 }
 
 function nationChoice(ENG_NAME,KOREA_NAME){
@@ -334,7 +334,7 @@ $(document).ready(function(){
 
 
 
-<form action="writeCustomAction.jsp" id="saveForm" method="post" name="indexForm">
+<form action="write" id="saveForm" method="post" name="indexForm">
 		<div class="right_row">
 		
 			<div class="col-sm-9" style="border: 1px solid black;">

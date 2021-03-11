@@ -1,7 +1,5 @@
 package kr.co.vo;
 
-import java.util.Date;
-
 public class CustomVO {
 
 	private String BUSI_NUM; // 사업자번호
@@ -22,14 +20,14 @@ public class CustomVO {
 	private boolean TAX_YN; // 과세구분 0 과세 1 비과세
 	private String COUNTRY_ENG; // 국가_영문
 	private String COUNTRY_KOR; // 국가_한글
-	private String SPECIAL_RELATION; // 특수관계자 yes 1 no 0
+	private boolean SPECIAL_RELATION; // 특수관계자 yes 1 no 0
 	private boolean TRADE_STOP; // 거래중지 yes 1 no 0
 	private String CONTRACT_PERIOD_S; // 계약기간 시작
 	private String CONTRACT_PERIOD_E; // 계약기간 끝
 	private String REGI_INFO_MAN; // 등록정보 등록인
-	private Date REGI_INFO_; // 등록정보 등록날짜
+	private String REGI_INFO_DATE; // 등록정보 등록날짜
 	private String MODI_INFO_MAN; // 변경정보 변경인
-	private Date MODI_INFO_; // 변경정보 변경날짜
+	private String MODI_INFO_DATE; // 변경정보 변경날짜
 
 	public CustomVO() {
 		super();
@@ -180,11 +178,11 @@ public class CustomVO {
 		COUNTRY_KOR = cOUNTRY_KOR;
 	}
 
-	public String getSPECIAL_RELATION() {
+	public boolean isSPECIAL_RELATION() {
 		return SPECIAL_RELATION;
 	}
 
-	public void setSPECIAL_RELATION(String sPECIAL_RELATION) {
+	public void setSPECIAL_RELATION(boolean sPECIAL_RELATION) {
 		SPECIAL_RELATION = sPECIAL_RELATION;
 	}
 
@@ -220,12 +218,12 @@ public class CustomVO {
 		REGI_INFO_MAN = rEGI_INFO_MAN;
 	}
 
-	public Date getREGI_INFO_() {
-		return REGI_INFO_;
+	public String getREGI_INFO_DATE() {
+		return REGI_INFO_DATE;
 	}
 
-	public void setREGI_INFO_(Date rEGI_INFO_) {
-		REGI_INFO_ = rEGI_INFO_;
+	public void setREGI_INFO_DATE(String rEGI_INFO_DATE) {
+		REGI_INFO_DATE = rEGI_INFO_DATE;
 	}
 
 	public String getMODI_INFO_MAN() {
@@ -236,12 +234,12 @@ public class CustomVO {
 		MODI_INFO_MAN = mODI_INFO_MAN;
 	}
 
-	public Date getMODI_INFO_() {
-		return MODI_INFO_;
+	public String getMODI_INFO_DATE() {
+		return MODI_INFO_DATE;
 	}
 
-	public void setMODI_INFO_(Date mODI_INFO_) {
-		MODI_INFO_ = mODI_INFO_;
+	public void setMODI_INFO_DATE(String mODI_INFO_DATE) {
+		MODI_INFO_DATE = mODI_INFO_DATE;
 	}
 
 	@Override
@@ -252,8 +250,8 @@ public class CustomVO {
 				+ HOMEPAGE + ", CO_YN=" + CO_YN + ", FOREIGN_YN=" + FOREIGN_YN + ", TAX_YN=" + TAX_YN + ", COUNTRY_ENG="
 				+ COUNTRY_ENG + ", COUNTRY_KOR=" + COUNTRY_KOR + ", SPECIAL_RELATION=" + SPECIAL_RELATION
 				+ ", TRADE_STOP=" + TRADE_STOP + ", CONTRACT_PERIOD_S=" + CONTRACT_PERIOD_S + ", CONTRACT_PERIOD_E="
-				+ CONTRACT_PERIOD_E + ", REGI_INFO_MAN=" + REGI_INFO_MAN + ", REGI_INFO_=" + REGI_INFO_
-				+ ", MODI_INFO_MAN=" + MODI_INFO_MAN + ", MODI_INFO_=" + MODI_INFO_ + "]";
+				+ CONTRACT_PERIOD_E + ", REGI_INFO_MAN=" + REGI_INFO_MAN + ", REGI_INFO_DATE=" + REGI_INFO_DATE
+				+ ", MODI_INFO_MAN=" + MODI_INFO_MAN + ", MODI_INFO_DATE=" + MODI_INFO_DATE + "]";
 	}
 
 }
